@@ -1,0 +1,20 @@
+name: Japanese Keigo PR Summary
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write # This allows the bot to post comments
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Keigo Translator
+        uses: ./ # This tells GitHub to use the action.yml in the current folder
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }} 
