@@ -1,47 +1,50 @@
 package com.bilingual.commit_translator_jp.service;
 
+import com.google.genai.Client;
+import com.google.genai.types.Content;
+import com.google.genai.types.GenerateContentConfig;
+import com.google.genai.types.Part;
+import com.google.genai.types.GenerateContentResponse;
+
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.http.*;
-import java.util.*;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GeminiService {
 
-    @Value("${GEMINI_API_KEY}")
+    @Value("${api.gemini.key}")
     private String apiKey;
 
-    @Value("${gemini.api.url}")
-    private String apiUrl;
+    public String getJapaneseSummary(String englishText) {
+        // 1. Setup the Client
+        Client client = Client.builder()
+                .apiKey(apiKey)
+                .build();
 
-    public String getJapaneseSummary(String englishText){
-        RestTemplate restTemplate = new RestTemplate();
-
-        String fullUrl = apiUrl + "?key=" + apiKey;
-        
+        // 2. Prepare the prompt
         String prompt = "Please summarize the following GitHub Pull Request changes into professional business Japanese (Keigo). Use bullet points. \n\n" + englishText;
 
-        // Creating the request body for Gemini
-        Map<String, Object> textPart = new HashMap<>();
-        textPart.put("text", prompt);
-
-        Map<String, Object> parts = new HashMap<>();
-        parts.put("parts", Collections.singletonList(textPart));
-
-        Map<String, Object> body = new HashMap<>();
-        body.put("contents", Collections.singletonList(parts));
-
-        // Sending the request
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
-
         try {
-            ResponseEntity<Map> response = restTemplate.postForEntity(fullUrl, entity, Map.class);
-            return response.getBody().toString();
+            // 3. Call Gemini 3 Flash
+
+            Content content = Content.builder()
+                                .parts(Collections.singletonList(Part.builder()
+                                    .text("You are an expert software engineer. Translate GitHub commit messages into professional business Japanese (Keigo). Use bullet points.")
+                                    .build()))
+                                .build();
+
+            GenerateContentConfig config = GenerateContentConfig.builder()
+                .systemInstruction(content)
+                .build();
+
+            GenerateContentResponse response = client.models.generateContent("gemini-3-flash-preview", prompt, config);
+            
+            // 4. Return just the text
+            return response.text();
         } catch (Exception e) {
-            return "Error calling Gemini: " + e.getMessage();
+            return "Error using Google SDK: " + e.getMessage();
         }
 
     }
