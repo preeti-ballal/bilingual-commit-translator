@@ -14,3 +14,7 @@ runs:
   args:
     - ${{ inputs.gemini_api_key }}
     - ${{ inputs.github_token }}
+
+branding:
+  icon: 'globe'
+  color: 'red'
