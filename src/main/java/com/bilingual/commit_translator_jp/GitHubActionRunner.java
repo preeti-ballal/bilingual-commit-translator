@@ -43,7 +43,7 @@ public class GitHubActionRunner {
             // 4. Post the comment back to GitHub
             HttpClient client = HttpClient.newHttpClient();
             JSONObject commentJson = new JSONObject();
-            commentJson.put("body", "### 🇯🇵 PR Summary (Keigo)\n" + japaneseSummary);
+            commentJson.put("body", "### PR Summary (Japanese)\n" + japaneseSummary);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(commentsUrl))
