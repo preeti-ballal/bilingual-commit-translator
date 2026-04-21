@@ -14,8 +14,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class GeminiService {
 
-    @Value("${api.gemini.key}")
+    // @Value("${api.gemini.key}")
+    // private String apiKey;
+
+    // Inside GeminiService.java
     private String apiKey;
+
+    // Add this constructor
+    public GeminiService() {
+        // If running in Spring, it uses @Value. 
+        // For the Action, we will set it manually in the Runner.
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
 
     public String getJapaneseSummary(String englishText) {
         // 1. Setup the Client

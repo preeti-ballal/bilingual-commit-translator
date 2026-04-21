@@ -1,0 +1,16 @@
+name: 'Keigo PR Translator'
+description: 'Translates PR descriptions into professional Japanese using Gemini 3'
+author: 'Preeti Ballal'
+inputs:
+  gemini_api_key:
+    description: 'Google Gemini API Key'
+    required: true
+  github_token:
+    description: 'GitHub Token (use secrets.GITHUB_TOKEN)'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.gemini_api_key }}
+    - ${{ inputs.github_token }}
