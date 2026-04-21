@@ -1,4 +1,4 @@
-name: 'Keigo PR Translator'
+name: 'Japanese (Keigo) PR Translator'
 description: 'Translates PR descriptions into professional Japanese using Gemini 3'
 branding:
   icon: 'globe'
