@@ -1,6 +1,6 @@
 # Japanese (Keigo) Translator for PR
 
-Automatically generates professional Japanese (Keigo) summaries for your Pull Requests using Google Gemini AI.
+Automatically generates professional Japanese (Keigo) summaries for your Pull Requests using Google Gemini AI 3.
 
 ## 🚀 Features
 - **Automated Summaries:** No more manual translations.
