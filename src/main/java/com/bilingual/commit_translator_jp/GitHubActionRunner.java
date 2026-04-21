@@ -68,7 +68,7 @@ public class GitHubActionRunner {
             String japaneseSummary = service.getJapaneseSummary(instruction + "\n\n" + textToTranslate);
 
             // 4. Post the comment back to GitHub
-            postComment(commentsUrl, "### 🇯🇵 PR Summary (Keigo)\n" + japaneseSummary, githubToken);
+            postComment(commentsUrl, "### Japanese PR Summary (Keigo)\n" + japaneseSummary, githubToken);
 
         } catch (Exception e) {
             System.err.println("::error::An unexpected error occurred: " + e.getMessage());
