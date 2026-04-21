@@ -1,5 +1,8 @@
 name: 'Keigo PR Translator'
 description: 'Translates PR descriptions into professional Japanese using Gemini 3'
+branding:
+  icon: 'globe'
+  color: 'red'
 author: 'Preeti Ballal'
 inputs:
   gemini_api_key:
@@ -14,7 +17,3 @@ runs:
   args:
     - ${{ inputs.gemini_api_key }}
     - ${{ inputs.github_token }}
-
-branding:
-  icon: 'globe'
-  color: 'red'
